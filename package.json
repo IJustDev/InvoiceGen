@@ -1,5 +1,5 @@
 {
-  "name": "invoicegen2",
+  "name": "invoicegen",
   "version": "1.0.6",
   "description": "Npm package for invoice generation.",
   "main": "lib/index.js",
