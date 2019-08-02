@@ -1,0 +1,14 @@
+{
+  "name": "invoicegen",
+  "version": "1.0.0",
+  "description": "Npm package for invoice generation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "IJustDev",
+  "license": "MIT",
+  "dependencies": {
+    "pdfkit": "^0.10.0"
+  }
+}
