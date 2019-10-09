@@ -90,7 +90,7 @@ invoice.setImage(path.join(__dirname, 'res', 'logo.png'));
 invoice.generate(path.join(__dirname, 'dist', 'output.pdf'));
 ```
 
-See the examples for more information on how to use this package. Click [here][sampleE] for the generated PDF (english) and [here](sampleG) for the generated PDF (german).
+See the examples for more information on how to use this package. Click [here][sampleE] for the generated PDF (english) and [here][sampleG] for the generated PDF (german).
 
 [sampleE]: ./res/english.pdf
 [sampleG]: ./res/german.pdf
