@@ -1,6 +1,10 @@
 {
   "name": "invoicegen",
-  "version": "1.0.6",
+  "version": "1.0.7",
+  "scripts": {
+    "lint": "eslint lib/**/*",
+    "test": "node test.js"
+  },
   "description": "Npm package for invoice generation.",
   "main": "lib/index.js",
   "author": "IJustDev",
@@ -8,5 +12,9 @@
   "dependencies": {
     "pdfkit": "^0.10.0",
     "voilab-pdf-table": "^0.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-google": "^0.14.0"
   }
 }

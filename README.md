@@ -6,50 +6,91 @@ A npm package for generating invoices as pdf.
 - Creating a full invoice with a few lines of code
 - Beginnerfriendly
 - Implementable in any kind of node application
-
+- 20 lines of code for a professional invoice.
 ## Getting started
 
 ```
-npm i invoicegen
+$ npm i invoicegen
 ```
 
 ```js
-const InvoiceGen = require("invoicegen");
-const path = require("path");
+const InvoiceGen = require('invoicegen');
+const path = require('path');
 
 const Invoice = InvoiceGen.Invoice;
 const EntityDetails = InvoiceGen.EntityDetails;
 const Position = InvoiceGen.Position;
 
-const sender = new EntityDetails(
-    "Max",
-    "Mustermann",
-    "Musterstraße 34",
-    "Musterort",
-    "12345",
-);
-sender.addCompanyName("MAX UG");
+/**
+ * Select a language
+ * You can also define your own language.
+ * Just export a class that extends the language class from invoicegen.
+ * --------------------------------------------------------------------------
+ * Currently you are able to switch between german and English just like this.
+ * const German = InvoiceGen.German;
+ * const English = InvoiceGen.English;
+*/
+const English = InvoiceGen.English;
 
-const receiver = new EntityDetails(
-    "Maria",
-    "Kopf",
-    "Secretstreet 69",
-    "Randomcity",
-    "0420"
-);
+/**
+ * Specify the sender.
+ */
+const senderDetails = new EntityDetails({
+    firstname: 'Max',
+    lastname: 'Mustermann',
+    street: 'Musterstraße 34',
+    city: 'Musterort',
+    zipCode: '12345',
+});
+/**
+ * Add a company name to the sender.
+ */
+senderDetails.addCompanyName('MAX UG');
 
+/**
+ * Specify the receiver.
+ */
+const receiverDetails = new EntityDetails({
+    firstname: 'Maria',
+    lastname: 'Head',
+    street: 'Secretstreet 69',
+    city: 'Randomcity',
+    zipCode: '420',
+});
+
+/**
+ * Declare the positions you want to invoice.
+*/
 const positions = [
     // Quantity, Description, Cost, tax, currency symbol
-    new Position(1, "Random position", 20, 19, "€")
+    new Position({
+        amount: 1,
+        description: 'Random position',
+        cost: 20,
+        currency: '€',
+        tax: 19,
+    }),
 ];
 
-const invoice = new Invoice(receiver, sender, positions);
-invoice.setMessage("Thank you for your purchase!");
-invoice.setImage(path.join(__dirname, ".." , "res", "logo.png"));
-// Path, invoice-id
-invoice.generate(path.join(__dirname, "..", "dist", "output.pdf"), 1337);
+/**
+ * Initialize your invoice with the sender- and receiver details and...
+ * the language!
+*/
+const invoice = new Invoice(
+    {senderDetails, receiverDetails, positions},
+    {invoiceId: 20, language: new English()});
+
+/** Set a nice thank you message */
+invoice.setMessage('Thank you for your purchase!');
+
+/** Set your logo */
+invoice.setImage(path.join(__dirname, 'res', 'logo.png'));
+
+/** And generate your pdf */
+invoice.generate(path.join(__dirname, 'dist', 'output.pdf'));
 ```
 
-See the examples for more information on how to use this package. Click [here][sample] for the generated PDF.
+See the examples for more information on how to use this package. Click [here][sampleE] for the generated PDF (english) and [here](sampleG) for the generated PDF (german).
 
-[sample]: ./res/sample.pdf
+[sampleE]: ./res/english.pdf
+[sampleG]: ./res/german.pdf

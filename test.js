@@ -1,24 +1,12 @@
-const InvoiceGen = require('invoicegen');
+const InvoiceGen = require('./lib/index');
 const path = require('path');
 
 const Invoice = InvoiceGen.Invoice;
 const EntityDetails = InvoiceGen.EntityDetails;
 const Position = InvoiceGen.Position;
 
-/**
- * Select a language
- * You can also define your own language.
- * Just export a class that extends the language class from invoicegen.
- * --------------------------------------------------------------------------
- * Currently you are able to switch between german and English just like this.
- * const German = InvoiceGen.German;
- * const English = InvoiceGen.English;
-*/
-const English = InvoiceGen.English;
+const German = InvoiceGen.German;
 
-/**
- * Specify the sender.
- */
 const senderDetails = new EntityDetails({
     firstname: 'Max',
     lastname: 'Mustermann',
@@ -26,14 +14,8 @@ const senderDetails = new EntityDetails({
     city: 'Musterort',
     zipCode: '12345',
 });
-/**
- * Add a company name to the sender.
- */
 senderDetails.addCompanyName('MAX UG');
 
-/**
- * Specify the receiver.
- */
 const receiverDetails = new EntityDetails({
     firstname: 'Maria',
     lastname: 'Head',
@@ -42,9 +24,6 @@ const receiverDetails = new EntityDetails({
     zipCode: '420',
 });
 
-/**
- * Declare the positions you want to invoice.
-*/
 const positions = [
     // Quantity, Description, Cost, tax, currency symbol
     new Position({
@@ -56,19 +35,11 @@ const positions = [
     }),
 ];
 
-/**
- * Initialize your invoice with the sender- and receiver details and...
- * the language!
-*/
 const invoice = new Invoice(
     {senderDetails, receiverDetails, positions},
-    {invoiceId: 20, language: new English()});
-
-/** Set a nice thank you message */
+    {invoiceId: 20, language: new German()});
 invoice.setMessage('Thank you for your purchase!');
-
-/** Set your logo */
 invoice.setImage(path.join(__dirname, 'res', 'logo.png'));
-
-/** And generate your pdf */
+// Path, invoice-id
 invoice.generate(path.join(__dirname, 'dist', 'output.pdf'));
+
